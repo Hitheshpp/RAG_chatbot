@@ -1,7 +1,3 @@
-import os
-from dotenv import load_dotenv
-load_dotenv()
-
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -23,7 +19,8 @@ embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mp
 vectorstore = FAISS.from_documents(documents, embedding_model)
 retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
 
-llm = GradioMistralLLM("https://hysts-mistral-7b.hf.space/")
+#llm = GradioMistralLLM("https://hysts-mistral-7b.hf.space/")
+llm = GradioMistralLLM("hysts/mistral-7b")
 
 # Step 4: RAG Chain
 qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
