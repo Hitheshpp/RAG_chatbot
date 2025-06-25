@@ -12,7 +12,7 @@ from langchain.chains import RetrievalQA
 from gradio_mistral_llm import GradioMistralLLM
 
 # Step 1: Load and split text
-loader = TextLoader(r"D:\Projects\RAG_chatbot\college_data.txt.md", encoding="utf-8")
+loader = TextLoader("college_data.txt.md", encoding="utf-8")
 pages = loader.load()
 
 splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=100)
