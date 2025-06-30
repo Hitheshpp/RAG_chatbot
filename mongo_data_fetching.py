@@ -14,9 +14,5 @@ client = MongoClient(connection_string)
 db = client[db_name]
 collection = db[collection_name]
 
-# Fetch all documents
-documents = collection.find()
-
-# Print all documents
-# for doc in documents:
-#     print(doc)
+def get_documents():
+    return list(collection.find())

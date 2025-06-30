@@ -1,4 +1,15 @@
-{
+from pymongo import MongoClient
+
+client = MongoClient("mongodb+srv://hidheshp2:KMAHjLb0Uk82mTrL@cluster0.flfg6iv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+db = client["college_db"]
+collection = db["full_details"]
+
+# Insert one document
+#collection.insert_one({"name": "Alice", "age": 25})
+
+# Insert many documents
+collection.insert_many([
+    {
   "college": {
     "name": "ABC Institute of Technology",
     "affiliation": "National Board of Higher Education (NBHE)",
@@ -141,3 +152,4 @@
     "amount": 5000.0
   }
 }
+])

@@ -1,24 +1,7 @@
-# import streamlit as st
-# from rag_chatbot import qa_chain
-
-# st.title("🎓 RAG Chatbot – College Info Assistant")
-
-# query = st.text_input("Ask a question about college information:")
-
-# if query:
-#     with st.spinner("Searching..."):
-#         result = qa_chain.invoke({"query": query})
-#     st.write("📄 Answer:")
-#     st.success(result)
-
 import streamlit as st
+from rag_chatbot import get_rag_chain  # ✅ updated import
 
-# Load RAG chain only once
-if "qa_chain" not in st.session_state:
-    from rag_chatbot import qa_chain
-    st.session_state.qa_chain = qa_chain
-
-# Initialize state
+# Initialize session state
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "pending_user_input" not in st.session_state:
@@ -75,13 +58,13 @@ if st.session_state.pending_user_input:
     st.session_state.messages.append({"role": "user", "content": user_msg})
 
     with st.spinner("Bot is thinking..."):
-        result = st.session_state.qa_chain.invoke({"query": user_msg})
+        qa_chain = get_rag_chain()  # ✅ always fetch fresh retriever
+        result = qa_chain.invoke({"query": user_msg})
         answer = result.get("result", str(result))
 
     st.session_state.messages.append({"role": "bot", "content": answer})
     st.session_state.pending_user_input = None
     st.rerun()
-
 
 
 
